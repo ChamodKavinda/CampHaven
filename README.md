@@ -6,9 +6,9 @@ CampHaven is a camp grounds web application.it include all the camp ground detai
 <h2>TechStack</h2>
 
 <ul>
-  <li>Languages:javascript</li>
-  <li>Framework:nodeJS</li>
-  <li>Database:MongoDB</li>
+  <li>Languages: javascript</li>
+  <li>Framework: nodeJS</li>
+  <li>Database: MongoDB</li>
 </ul>
 
 
