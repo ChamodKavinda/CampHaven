@@ -29,7 +29,9 @@ app.get('/campgrounds',async (req,res)=>{
     res.render('campgrounds/index',{campgrounds});
 })
 
-
+app.get('/campgrounds/new',(req,res)=>{
+    res.render('campgrounds/new');
+})
 
 app.post('/campgrounds', async (req,res) =>{
     const campground = new Campground(req.body.campground);
