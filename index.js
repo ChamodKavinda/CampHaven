@@ -9,6 +9,7 @@ const ExpressError = require('./utils/ExpressError');
 const campgroundRouter = require('./routes/campgrounds.js');
 const reviews = require('./routes/reviews');
 const session = require('express-session');
+const flash = require('connect-flash');
 
 const db = mongoose.connection;
 db.on("error",console.error.bind(console, "connection error"));
@@ -35,6 +36,15 @@ const sessionConfig = {
     }
 }
 app.use(session(sessionConfig))
+
+app.use(flash());
+
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
+
 
 app.use('/campgrounds',campgroundRouter);
 app.use('/campgrounds/:id/reviews', reviews)
