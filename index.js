@@ -8,6 +8,7 @@ mongoose.connect('mongodb://localhost:27017/camp-haven');
 const ExpressError = require('./utils/ExpressError');
 const campgroundRouter = require('./routes/campgrounds.js');
 const reviews = require('./routes/reviews');
+const session = require('express-session');
 
 const db = mongoose.connection;
 db.on("error",console.error.bind(console, "connection error"));
@@ -21,7 +22,19 @@ app.set('views', path.join(__dirname,'views'));
 app.engine('ejs',ejsMate);
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
+app.use(express.static('public'));
 
+const sessionConfig = {
+    secret: 'thisshouldbeabettersecret!',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
+app.use(session(sessionConfig))
 
 app.use('/campgrounds',campgroundRouter);
 app.use('/campgrounds/:id/reviews', reviews)
